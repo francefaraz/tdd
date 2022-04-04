@@ -31,12 +31,38 @@ describe("Dictonary", () => {
         })
         
       });
-      it("PUT /api/:id ---> updating specific document", () => {
-         return request(app).put('/api/:id').expect('Content-Type', /json/)
+      it("DELETE /api/:id ---> deleting specific document", () => {
+         return request(app).delete('/api/624ab5b0a09f32547db8e7ca')
+        //  withArgs({_id:"624a8453e6affd8dc9138993"})
+         .expect('Content-Type', /json/)         
+         .then((response) =>{
+            console.log(response.body)
+            expect(response.body).toEqual(expect.objectContaining({
+                word1:expect.any(String),
+            }))
+
+         })
+
+        //  624a8d6b989e3759dc503018
          
 
       });
 
+      
+      it("PUT /api/:id ---> updating specific document", () => {
+        return request(app).put('/api/624ab66c43a15298f0de7891')
+       //  withArgs({_id:"624a8453e6affd8dc9138993"})
+       .send({ 
+        word1:'aracde is in love is not that easy'
+    })
+    .then((response) =>{
+        console.log(response.body)
+        d=request.body
+        expect(response.body).toEqual(expect.objectContaining({
+            word1:expect.any(String),
+        }))
+    })
+     });
 
 
     });
